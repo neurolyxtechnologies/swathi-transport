@@ -1,9 +1,10 @@
 "use client";
 
-import { motion } from "motion/react";
+import { motion, type Variants } from "motion/react";
 import LorryScene from "@/components/animation/LorryScene";
+import HeroBackdrop from "@/components/animation/HeroBackdrop";
 import { ButtonLink } from "@/components/ui/Button";
-import { useGsapContext } from "@/lib/hooks/useGsapContext";
+import { cn } from "@/lib/cn";
 
 const trust = [
   { value: "48,000+", label: "Vehicles moved" },
@@ -11,43 +12,27 @@ const trust = [
   { value: "99.4%", label: "On-time" },
 ];
 
+// Headline split into words for a masked, word-by-word reveal.
+const headline: { text: string; grad?: boolean; break?: boolean }[] = [
+  { text: "From" },
+  { text: "the" },
+  { text: "plant", break: true },
+  { text: "to" },
+  { text: "the" },
+  { text: "showroom", grad: true },
+  { text: "floor.", grad: true },
+];
+
+const wordVariant: Variants = {
+  hidden: { y: "115%" },
+  show: { y: 0, transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] } },
+};
+
 export default function Hero() {
-  // Scene animation is self-contained in the right panel — it plays once when
-  // in view, then idles with subtle ambient motion. No pinning, no scroll overlap.
-  const scope = useGsapContext<HTMLDivElement>(({ gsap, reduced }) => {
-    if (reduced) {
-      gsap.set(".deck-car", { opacity: 1, y: 0 });
-      return;
-    }
-
-    // Cars load onto the decks, one by one (lower deck first, then upper).
-    gsap.set(".deck-car", { opacity: 0, y: 150 });
-    const order = [2, 3, 0, 1];
-    order.forEach((id, i) =>
-      gsap.to(`.deck-car[data-car="${id}"]`, {
-        opacity: 1,
-        y: 0,
-        ease: "back.out(1.4)",
-        duration: 0.7,
-        delay: 0.5 + i * 0.22,
-      })
-    );
-
-    // Wheels spin slowly, forever.
-    gsap.to(".wheel", { rotate: 360, repeat: -1, ease: "none", duration: 6, transformOrigin: "center" });
-
-    // Whole rig floats gently.
-    gsap.to(".lorry-truck", {
-      y: -10,
-      repeat: -1,
-      yoyo: true,
-      ease: "sine.inOut",
-      duration: 3.2,
-    });
-  }, []);
-
+  // The lorry scene self-animates (see LorryScene). Hero only owns the copy
+  // entrance and the framing panel.
   return (
-    <section id="top" ref={scope} className="relative overflow-hidden">
+    <section id="top" className="relative overflow-hidden">
       {/* Atmosphere */}
       <div className="absolute inset-0 bg-[radial-gradient(120%_100%_at_80%_-10%,#1b2436_0%,#0b0f1a_60%)]" />
       <div className="absolute inset-0 bg-grid opacity-50" />
@@ -67,14 +52,24 @@ export default function Hero() {
           </motion.span>
 
           <motion.h1
-            initial={{ opacity: 0, y: 28 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.28, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-            className="mt-6 text-5xl leading-[0.95] text-chrome sm:text-6xl"
+            initial="hidden"
+            animate="show"
+            transition={{ staggerChildren: 0.075, delayChildren: 0.3 }}
+            className="mt-6 text-5xl leading-[1.02] text-chrome sm:text-6xl"
           >
-            From the plant
-            <br />
-            to the <span className="text-gradient">showroom floor.</span>
+            {headline.map((w, i) => (
+              <span key={i}>
+                <span className="inline-flex overflow-hidden pb-[0.08em] align-bottom">
+                  <motion.span
+                    variants={wordVariant}
+                    className={cn("inline-block", w.grad && "text-gradient")}
+                  >
+                    {w.text}
+                  </motion.span>
+                </span>
+                {w.break ? <br /> : <span> </span>}
+              </span>
+            ))}
           </motion.h1>
 
           <motion.p
@@ -129,11 +124,14 @@ export default function Hero() {
             <div className="bg-grid absolute inset-0 opacity-30" />
             <div className="absolute left-1/2 top-1/2 h-64 w-64 -translate-x-1/2 -translate-y-1/2 rounded-full bg-cargo/20 blur-3xl" />
 
+            {/* plant → showroom backdrop */}
+            <HeroBackdrop />
+
             <LorryScene className="relative w-full" />
 
-            {/* road strip */}
+            {/* moving road strip */}
             <div
-              className="absolute inset-x-6 bottom-6 h-2 rounded-full sm:inset-x-10"
+              className="road-move absolute inset-x-6 bottom-6 h-2 rounded-full sm:inset-x-10"
               style={{
                 backgroundImage:
                   "repeating-linear-gradient(90deg, var(--color-steel-dark) 0 22px, transparent 22px 44px)",
@@ -154,7 +152,7 @@ export default function Hero() {
             <motion.div
               animate={{ y: [0, 8, 0] }}
               transition={{ repeat: Infinity, duration: 4, ease: "easeInOut", delay: 0.5 }}
-              className="absolute bottom-16 left-5 flex items-center gap-2 rounded-full border border-steel-dark/40 bg-asphalt/80 px-3.5 py-2 text-xs font-semibold text-chrome backdrop-blur sm:left-8"
+              className="absolute left-5 top-5 flex items-center gap-2 rounded-full border border-steel-dark/40 bg-asphalt/80 px-3.5 py-2 text-xs font-semibold text-chrome backdrop-blur sm:left-8 sm:top-8"
             >
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-cargo)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6l8-4z" />

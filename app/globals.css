@@ -142,6 +142,47 @@ h4 {
   animation: marquee 28s linear infinite;
 }
 
+/* Hero: scrolling road markings (truck feels in-motion) */
+@keyframes roadMove {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: -44px 0;
+  }
+}
+.road-move {
+  animation: roadMove 0.9s linear infinite;
+}
+
+/* Hero: slow-drifting distant scenery */
+@keyframes heroDrift {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+.hero-drift {
+  animation: heroDrift 45s linear infinite;
+}
+
+/* Hero: chimney smoke */
+@keyframes smokeRise {
+  0% {
+    transform: translateY(0) scale(0.5);
+    opacity: 0.45;
+  }
+  100% {
+    transform: translateY(-30px) scale(1.4);
+    opacity: 0;
+  }
+}
+.smoke {
+  animation: smokeRise 3.2s ease-out infinite;
+}
+
 /* Self-drawing stroke (route lines) */
 .draw-route {
   stroke-dasharray: var(--len, 1000);

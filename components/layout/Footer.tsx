@@ -4,16 +4,20 @@ import Logo from "@/components/ui/Logo";
 
 const columns = [
   {
-    title: "Services",
-    links: ["Plant-to-Showroom", "Bulk Multi-Car Carriers", "Enclosed Transport", "Dealer Inventory Logistics"],
+    title: "Explore",
+    links: [
+      { label: "Services", href: "#services" },
+      { label: "How it works", href: "#how" },
+      { label: "Coverage", href: "#coverage" },
+      { label: "Why us", href: "#why" },
+    ],
   },
   {
-    title: "Company",
-    links: ["About us", "Coverage", "Careers", "Contact"],
-  },
-  {
-    title: "Support",
-    links: ["Track shipment", "Get a quote", "FAQs", "Insurance"],
+    title: "Get started",
+    links: [
+      { label: "Track shipment", href: "#track" },
+      { label: "Get a quote", href: "#quote" },
+    ],
   },
 ];
 
@@ -22,7 +26,7 @@ export default function Footer() {
     <footer className="relative overflow-hidden border-t border-steel-dark/20 bg-asphalt">
       <div className="bg-grid absolute inset-0 opacity-40" />
       <div className="relative mx-auto max-w-7xl px-6 py-16">
-        <div className="grid gap-12 lg:grid-cols-[1.4fr_1fr_1fr_1fr]">
+        <div className="grid gap-12 lg:grid-cols-[1.8fr_1fr_1fr]">
           <div>
             <Logo />
             <p className="mt-5 max-w-xs text-sm leading-relaxed text-steel">
@@ -47,12 +51,12 @@ export default function Footer() {
               </h4>
               <ul className="space-y-3">
                 {col.links.map((link) => (
-                  <li key={link}>
+                  <li key={link.href}>
                     <a
-                      href="#"
+                      href={link.href}
                       className="text-sm text-steel transition-colors hover:text-chrome"
                     >
-                      {link}
+                      {link.label}
                     </a>
                   </li>
                 ))}

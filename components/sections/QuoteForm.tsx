@@ -34,6 +34,45 @@ function Field({
 
 export default function QuoteForm() {
   const [sent, setSent] = useState(false);
+  const [status, setStatus] = useState<"idle" | "submitting" | "error">("idle");
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const fd = new FormData(e.currentTarget);
+    if (fd.get("botcheck")) return; // honeypot: a bot filled the hidden field
+
+    const key = process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY;
+
+    // No key configured yet → show success locally so the form still works.
+    if (!key) {
+      setSent(true);
+      return;
+    }
+
+    setStatus("submitting");
+    try {
+      const payload = Object.fromEntries(fd.entries());
+      const res = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({
+          access_key: key,
+          subject: "New quote request — Swathi Lorry Transport",
+          from_name: (payload.name as string) || "Website lead",
+          ...payload,
+        }),
+      });
+      const json = await res.json();
+      if (json.success) {
+        setStatus("idle");
+        setSent(true);
+      } else {
+        setStatus("error");
+      }
+    } catch {
+      setStatus("error");
+    }
+  };
 
   return (
     <Section id="quote" className="border-t border-steel-dark/20" inner="max-w-6xl">
@@ -108,7 +147,10 @@ export default function QuoteForm() {
                     all-inclusive price. Keep an eye on your inbox.
                   </p>
                   <button
-                    onClick={() => setSent(false)}
+                    onClick={() => {
+                      setSent(false);
+                      setStatus("idle");
+                    }}
                     className="mt-7 font-mono text-xs uppercase tracking-[0.2em] text-steel underline-offset-4 hover:text-cargo hover:underline"
                   >
                     Send another request
@@ -120,12 +162,18 @@ export default function QuoteForm() {
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
-                  onSubmit={(e) => {
-                    e.preventDefault();
-                    setSent(true);
-                  }}
+                  onSubmit={handleSubmit}
                   className="space-y-4"
                 >
+                  {/* honeypot (hidden from humans, traps bots) */}
+                  <input
+                    type="checkbox"
+                    name="botcheck"
+                    tabIndex={-1}
+                    autoComplete="off"
+                    className="hidden"
+                    aria-hidden
+                  />
                   <div className="grid gap-4 sm:grid-cols-2">
                     <Field label="Contact name" name="name" />
                     <Field label="Company" name="company" />
@@ -150,9 +198,14 @@ export default function QuoteForm() {
                       Anything else? (optional)
                     </label>
                   </div>
-                  <Button type="submit" className="w-full">
-                    Request my quote →
+                  <Button type="submit" className="w-full" disabled={status === "submitting"}>
+                    {status === "submitting" ? "Sending…" : "Request my quote →"}
                   </Button>
+                  {status === "error" && (
+                    <p className="text-center text-sm text-red-400">
+                      Something went wrong — please try again, or email us directly.
+                    </p>
+                  )}
                   <p className="text-center text-xs text-steel-dark">
                     By submitting you agree to be contacted about your dispatch.
                   </p>

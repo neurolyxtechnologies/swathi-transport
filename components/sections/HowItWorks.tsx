@@ -1,103 +1,102 @@
 "use client";
 
+import { useRef, useState } from "react";
 import Section from "@/components/ui/Section";
 import SectionHeading from "@/components/ui/SectionHeading";
+import JourneyScene, { type JourneyTimeline } from "@/components/animation/JourneyScene";
 import { steps } from "@/data/content";
-import { useGsapContext } from "@/lib/hooks/useGsapContext";
+import { cn } from "@/lib/cn";
+
+const labels = ["plan", "load", "transit", "deliver"];
 
 export default function HowItWorks() {
-  const scope = useGsapContext<HTMLDivElement>(({ gsap, reduced }) => {
-    if (reduced) {
-      gsap.set(".road-fill", { width: "100%" });
-      gsap.set(".road-lorry", { left: "100%" });
-      gsap.set(".step-card", { opacity: 1, y: 0 });
-      return;
-    }
+  const [active, setActive] = useState(0);
+  const tlRef = useRef<JourneyTimeline | null>(null);
 
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: ".road-track",
-        start: "top 75%",
-        end: "bottom 60%",
-        scrub: 1,
-      },
-    });
-
-    tl.fromTo(".road-fill", { width: "0%" }, { width: "100%", ease: "none" }, 0);
-    tl.fromTo(".road-lorry", { left: "0%" }, { left: "100%", ease: "none" }, 0);
-
-    // step cards reveal as the lorry rolls past their position
-    gsap.utils.toArray<HTMLElement>(".step-card").forEach((card, i) => {
-      gsap.fromTo(
-        card,
-        { opacity: 0, y: 40 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.5,
-          scrollTrigger: { trigger: card, start: "top 85%" },
-          delay: (i % 2) * 0.05,
-        }
-      );
-    });
-  }, []);
+  const jumpTo = (i: number) => {
+    setActive(i);
+    tlRef.current?.play(labels[i]);
+  };
 
   return (
     <Section id="how" className="overflow-hidden">
-      <div ref={scope}>
-        <SectionHeading
-          align="center"
-          eyebrow="How it works"
-          title={
-            <>
-              Four steps from <span className="text-gradient">plant to floor.</span>
-            </>
-          }
-          lede="One transparent process for every dispatch. Your team watches each milestone happen — we do all the lifting."
-        />
+      <SectionHeading
+        align="center"
+        eyebrow="How it works"
+        title={
+          <>
+            Four steps from <span className="text-gradient">plant to floor.</span>
+          </>
+        }
+        lede="One transparent process for every dispatch — watch a consignment move from planning to delivery, on a loop."
+      />
 
-        {/* Road track with traveling lorry */}
-        <div className="road-track relative mx-auto mt-20 hidden h-1.5 max-w-5xl lg:block">
-          <div className="absolute inset-0 rounded-full bg-asphalt-3" />
-          <div className="road-fill absolute inset-y-0 left-0 rounded-full bg-gradient-to-r from-cargo to-amber" />
-          {/* milestone dots */}
-          {steps.map((_, i) => (
-            <span
-              key={i}
-              className="absolute top-1/2 h-4 w-4 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-asphalt bg-amber"
-              style={{ left: `${(i / (steps.length - 1)) * 100}%` }}
-            />
-          ))}
-          {/* lorry glyph */}
-          <div className="road-lorry absolute top-1/2 -translate-x-1/2 -translate-y-1/2">
-            <div className="flex h-10 w-14 -translate-y-1 items-end justify-center rounded-md bg-cargo text-asphalt shadow-[0_8px_24px_-4px_rgba(255,122,24,0.6)]">
-              <svg width="34" height="22" viewBox="0 0 34 22" fill="currentColor" aria-hidden>
-                <rect x="1" y="6" width="20" height="9" rx="1" />
-                <path d="M21 8h6l5 4v3H21z" />
-                <circle cx="8" cy="17" r="3" fill="#0b0f1a" />
-                <circle cx="26" cy="17" r="3" fill="#0b0f1a" />
-              </svg>
-            </div>
+      {/* Animated journey stage */}
+      <div className="relative mt-10 overflow-hidden rounded-[2rem] border border-steel-dark/30 bg-gradient-to-br from-asphalt-2/70 to-asphalt/30 p-3 sm:p-5">
+        <div className="bg-grid pointer-events-none absolute inset-0 opacity-20" />
+        <div className="relative">
+          <JourneyScene onPhase={setActive} tlRef={tlRef} />
+
+          {/* phase progress segments */}
+          <div className="mx-auto mt-6 flex max-w-xl gap-2">
+            {steps.map((_, i) => (
+              <span
+                key={i}
+                className={cn(
+                  "h-1 flex-1 rounded-full transition-colors duration-500",
+                  i <= active ? "bg-gradient-to-r from-cargo to-amber" : "bg-asphalt-3"
+                )}
+              />
+            ))}
           </div>
         </div>
+      </div>
 
-        {/* Steps */}
-        <div className="mt-14 grid gap-6 md:grid-cols-2 lg:mt-12 lg:grid-cols-4">
-          {steps.map((step) => (
-            <div
+      {/* Synced, clickable step cards */}
+      <div className="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+        {steps.map((step, i) => {
+          const isActive = i === active;
+          return (
+            <button
               key={step.n}
-              className="step-card rounded-3xl border border-steel-dark/30 bg-asphalt-2/50 p-7"
+              onClick={() => jumpTo(i)}
+              className={cn(
+                "group relative overflow-hidden rounded-3xl border p-6 text-left transition-all duration-300",
+                isActive
+                  ? "border-cargo/60 bg-asphalt-2 shadow-[0_0_40px_-12px_rgba(255,122,24,0.5)]"
+                  : "border-steel-dark/30 bg-asphalt-2/40 hover:border-steel-dark/60"
+              )}
             >
-              <span className="font-display text-5xl font-black text-asphalt-3 [-webkit-text-stroke:1px_var(--color-steel-dark)]">
-                {step.n}
-              </span>
-              <h3 className="mt-4 text-lg font-bold text-chrome">{step.title}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-steel">
-                {step.description}
-              </p>
-            </div>
-          ))}
-        </div>
+              {/* active accent bar */}
+              <span
+                className={cn(
+                  "absolute inset-x-0 top-0 h-0.5 origin-left bg-gradient-to-r from-cargo to-amber transition-transform duration-500",
+                  isActive ? "scale-x-100" : "scale-x-0"
+                )}
+              />
+              <div className="flex items-center gap-3">
+                <span
+                  className={cn(
+                    "font-display text-4xl font-black transition-colors duration-300",
+                    isActive
+                      ? "text-gradient"
+                      : "text-asphalt-3 [-webkit-text-stroke:1px_var(--color-steel-dark)]"
+                  )}
+                >
+                  {step.n}
+                </span>
+                {isActive && (
+                  <span className="flex items-center gap-1.5 rounded-full bg-cargo/15 px-2.5 py-1 font-mono text-[9px] uppercase tracking-[0.2em] text-cargo">
+                    <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-cargo" />
+                    Now
+                  </span>
+                )}
+              </div>
+              <h3 className="mt-3 text-lg font-bold text-chrome">{step.title}</h3>
+              <p className="mt-2 text-sm leading-relaxed text-steel">{step.description}</p>
+            </button>
+          );
+        })}
       </div>
     </Section>
   );
