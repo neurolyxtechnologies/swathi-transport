@@ -6,10 +6,10 @@ export interface Stat {
 }
 
 export const stats: Stat[] = [
-  { value: 48000, suffix: "+", label: "Vehicles dispatched" },
-  { value: 220, suffix: "+", label: "Cities & dealer points" },
-  { value: 99.4, suffix: "%", label: "On-time delivery", decimals: 1 },
-  { value: 14, suffix: "yrs", label: "Serving OEMs & dealers" },
+  { value: 400, suffix: "+", label: "Fleet vehicles" },
+  { value: 8, suffix: "+", label: "Years on the road" },
+  { value: 4, suffix: "", label: "Logistics hubs" },
+  { value: 100, suffix: "%", label: "Insured & GPS-tracked" },
 ];
 
 export interface Testimonial {
@@ -21,27 +21,27 @@ export interface Testimonial {
 export const testimonials: Testimonial[] = [
   {
     quote:
-      "Swathi runs our plant-to-dealer dispatches across four states. Every batch arrives on time with clean per-unit condition reports. They're an extension of our supply chain now.",
-    name: "Rohan Mehta",
-    role: "Logistics Manager, OEM Plant · Pune",
+      "Swathi runs our auto-parts FTL out of Chennai across South India. Full truckloads, on-time, and their Tata fleet means we rarely see a breakdown delay. A dependable partner.",
+    name: "Rajesh Kumar",
+    role: "Supply Chain Lead, Auto OEM · Chennai",
   },
   {
     quote:
-      "We move 400+ units a month to our showrooms. Swathi's multi-car carriers and live tracking made our inbound logistics completely predictable.",
+      "We move finished cars and components to dealers in Bengaluru and Hyderabad. Swathi's containers and live tracking made our inbound logistics genuinely predictable.",
     name: "Priya Nair",
-    role: "Operations Head, AutoLux Dealerships",
+    role: "Operations Head, Dealer Network",
   },
   {
     quote:
-      "Enclosed transport for our premium EV line — delivered to the launch showroom spotless and PDI-ready. Zero transit damage in two years.",
+      "Their 32-ft container trucks and close-body Eicher fleet keep our cargo dry and secure. Whatever we load in Chennai reaches Pune exactly as it left.",
     name: "Vikram Singh",
-    role: "Network Manager, Luxe Motors · Delhi",
+    role: "Plant Logistics Manager · Tamil Nadu",
   },
   {
     quote:
-      "Bulk stock movement during festive season is brutal. Swathi scaled with us, hit every delivery window, and kept us fully insured throughout.",
+      "Festive-season volumes are brutal, but Swathi scaled with us, hit every delivery window, and kept every consignment fully insured. Highly recommend.",
     name: "Ananya Rao",
-    role: "Regional Head, DriveNation · Hyderabad",
+    role: "Regional Head, Auto Distribution · Hyderabad",
   },
 ];
 

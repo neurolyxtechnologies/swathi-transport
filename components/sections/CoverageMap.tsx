@@ -1,40 +1,64 @@
 "use client";
 
 import { useState } from "react";
+import { geoMercator, geoPath } from "d3-geo";
 import Section from "@/components/ui/Section";
 import SectionHeading from "@/components/ui/SectionHeading";
 import StatCounter from "@/components/animation/StatCounter";
 import { cities, routes } from "@/data/cities";
 import { stats } from "@/data/content";
 import { useGsapContext } from "@/lib/hooks/useGsapContext";
+import indiaGeometry from "@/data/india-geo.json";
 
-// Smoother, more recognisable India silhouette (coords match data/cities.ts).
-const INDIA =
-  "M40 5 Q50 6 58 12 Q68 15 70 19 Q63 24 61 31 Q62 38 60 46 Q57 56 52 65 Q48 75 44 83 Q42 92 41 99 Q38 90 35 80 Q31 70 27 60 Q24 54 22 50 Q15 49 13 44 Q18 41 21 40 Q21 34 20 30 Q24 22 30 17 Q35 10 40 5 Z";
+// ── Project the real India geometry into the SVG viewBox (once) ───────────────
+const W = 112;
+const H = 122;
+const indiaFeature = {
+  type: "Feature" as const,
+  geometry: indiaGeometry as GeoJSON.Geometry,
+  properties: {},
+};
+const projection = geoMercator().fitExtent(
+  [
+    [8, 6],
+    [78, H - 8],
+  ],
+  indiaFeature
+);
+const pathGen = geoPath(projection);
+const COUNTRY_D = pathGen(indiaFeature) ?? "";
+
+function project(lng: number, lat: number) {
+  const p = projection([lng, lat]);
+  return { x: p?.[0] ?? 0, y: p?.[1] ?? 0 };
+}
+
+// Pre-project every city to SVG coordinates.
+const pts = cities.map((c) => ({ ...c, ...project(c.lng, c.lat) }));
 
 // Per-city label placement to avoid collisions.
 const LABEL: Record<string, { dx: number; dy: number; anchor: "start" | "end" }> = {
-  Delhi: { dx: 2.6, dy: 0.9, anchor: "start" },
-  Jaipur: { dx: 2.6, dy: 0.9, anchor: "start" },
-  Ahmedabad: { dx: -2.6, dy: 0.9, anchor: "end" },
-  Mumbai: { dx: -2.6, dy: 0.2, anchor: "end" },
-  Pune: { dx: 2.6, dy: 2.6, anchor: "start" },
-  Hyderabad: { dx: 2.6, dy: 0.9, anchor: "start" },
-  Nagpur: { dx: 2.6, dy: 0.9, anchor: "start" },
-  Kolkata: { dx: 2.6, dy: 0.9, anchor: "start" },
-  Bengaluru: { dx: -2.6, dy: 1.8, anchor: "end" },
-  Chennai: { dx: 2.6, dy: 1.8, anchor: "start" },
+  Delhi: { dx: 2.6, dy: 1, anchor: "start" },
+  Jaipur: { dx: -2.6, dy: 1, anchor: "end" },
+  Ahmedabad: { dx: -2.6, dy: 1, anchor: "end" },
+  Mumbai: { dx: -2.6, dy: 0.4, anchor: "end" },
+  Pune: { dx: -2.6, dy: 2.8, anchor: "end" },
+  Hyderabad: { dx: 2.6, dy: 1, anchor: "start" },
+  Nagpur: { dx: 2.6, dy: 1, anchor: "start" },
+  Kolkata: { dx: 2.6, dy: 1, anchor: "start" },
+  Bengaluru: { dx: -2.6, dy: 2.4, anchor: "end" },
+  Chennai: { dx: 2.6, dy: 1.6, anchor: "start" },
 };
 
-/** Quadratic arc between two cities, bowed outward for a flight-path feel. */
+/** Quadratic arc between two projected points, bowed for a flight-path feel. */
 function arc(a: { x: number; y: number }, b: { x: number; y: number }) {
   const mx = (a.x + b.x) / 2;
   const my = (a.y + b.y) / 2;
   const dx = b.x - a.x;
   const dy = b.y - a.y;
-  const dist = Math.hypot(dx, dy);
-  const ox = (-dy / dist) * dist * 0.18;
-  const oy = (dx / dist) * dist * 0.18;
+  const dist = Math.hypot(dx, dy) || 1;
+  const ox = (-dy / dist) * dist * 0.16;
+  const oy = (dx / dist) * dist * 0.16;
   return `M${a.x} ${a.y} Q${mx + ox} ${my + oy} ${b.x} ${b.y}`;
 }
 
@@ -44,7 +68,6 @@ export default function CoverageMap() {
   const scope = useGsapContext<HTMLDivElement>(({ gsap, reduced }) => {
     const trigger = { trigger: ".map-wrap", start: "top 75%" };
 
-    // Draw route arcs.
     gsap.utils.toArray<SVGPathElement>(".route-arc").forEach((path, i) => {
       const len = path.getTotalLength();
       gsap.set(path, { strokeDasharray: len, strokeDashoffset: reduced ? 0 : len });
@@ -59,14 +82,12 @@ export default function CoverageMap() {
       return;
     }
 
-    // Pop city pins in.
     gsap.fromTo(
       ".city-pin",
       { scale: 0, opacity: 0, transformOrigin: "center" },
       { scale: 1, opacity: 1, duration: 0.5, ease: "back.out(2)", stagger: 0.07, delay: 0.3, scrollTrigger: trigger }
     );
 
-    // Pulses travelling along each route — the "live network".
     gsap.utils.toArray<SVGPathElement>(".route-pulse").forEach((path, i) => {
       const len = path.getTotalLength();
       gsap.set(path, { strokeDasharray: `3 ${len + 3}`, strokeDashoffset: 0, opacity: 0.95 });
@@ -86,13 +107,13 @@ export default function CoverageMap() {
         {/* Map */}
         <div className="map-wrap relative order-2 lg:order-1">
           <div className="absolute left-1/2 top-1/2 h-80 w-80 -translate-x-1/2 -translate-y-1/2 rounded-full bg-cargo/10 blur-3xl" />
-          <svg viewBox="6 0 80 106" className="relative w-full max-w-lg">
+          <svg viewBox={`0 0 ${W} ${H}`} className="relative w-full max-w-lg">
             <defs>
               <linearGradient id="mapFill" x1="0" y1="0" x2="0" y2="1">
                 <stop stopColor="#1b2436" />
                 <stop offset="1" stopColor="#10182a" />
               </linearGradient>
-              <linearGradient id="routeGrad" x1="0" y1="0" x2="100" y2="100" gradientUnits="userSpaceOnUse">
+              <linearGradient id="routeGrad" x1="0" y1="0" x2={W} y2={H} gradientUnits="userSpaceOnUse">
                 <stop stopColor="var(--color-cargo)" />
                 <stop offset="1" stopColor="var(--color-signal)" />
               </linearGradient>
@@ -100,50 +121,35 @@ export default function CoverageMap() {
                 <circle cx="1.5" cy="1.5" r="0.34" fill="#33415c" />
               </pattern>
               <clipPath id="indiaClip">
-                <path d={INDIA} />
+                <path d={COUNTRY_D} />
               </clipPath>
             </defs>
 
-            {/* landmass + territory dots */}
-            <path d={INDIA} fill="url(#mapFill)" />
+            {/* accurate landmass + territory dots */}
+            <path d={COUNTRY_D} fill="url(#mapFill)" />
             <g clipPath="url(#indiaClip)">
-              <rect x="6" y="0" width="80" height="106" fill="url(#mapDots)" />
+              <rect x="0" y="0" width={W} height={H} fill="url(#mapDots)" />
             </g>
-            <path d={INDIA} fill="none" stroke="#3b4a66" strokeWidth="0.5" strokeLinejoin="round" />
+            <path d={COUNTRY_D} fill="none" stroke="#3b4a66" strokeWidth="0.5" strokeLinejoin="round" />
 
-            {/* routes (base draw + travelling pulse) */}
+            {/* routes */}
             {routes.map(([a, b], i) => {
-              const d = arc(cities[a], cities[b]);
+              const d = arc(pts[a], pts[b]);
               const connected = hover !== null && (a === hover || b === hover);
               const dim = hover !== null && !connected;
               return (
                 <g key={i} style={{ opacity: dim ? 0.12 : 1, transition: "opacity 0.3s" }}>
-                  <path
-                    className="route-arc"
-                    d={d}
-                    fill="none"
-                    stroke="url(#routeGrad)"
-                    strokeWidth={connected ? 1 : 0.7}
-                    strokeLinecap="round"
-                  />
-                  <path
-                    className="route-pulse"
-                    d={d}
-                    fill="none"
-                    stroke="#5cf2cf"
-                    strokeWidth="1.3"
-                    strokeLinecap="round"
-                    opacity="0"
-                  />
+                  <path className="route-arc" d={d} fill="none" stroke="url(#routeGrad)" strokeWidth={connected ? 1 : 0.7} strokeLinecap="round" />
+                  <path className="route-pulse" d={d} fill="none" stroke="#5cf2cf" strokeWidth="1.3" strokeLinecap="round" opacity="0" />
                 </g>
               );
             })}
 
             {/* cities */}
-            {cities.map((c, idx) => {
+            {pts.map((c, idx) => {
               const isHover = hover === idx;
               const r = c.hub ? (isHover ? 2.4 : 1.7) : isHover ? 1.7 : 1;
-              const lab = LABEL[c.name] ?? { dx: 2.6, dy: 0.9, anchor: "start" as const };
+              const lab = LABEL[c.name] ?? { dx: 2.6, dy: 1, anchor: "start" as const };
               return (
                 <g
                   key={c.name}
@@ -152,9 +158,7 @@ export default function CoverageMap() {
                   onMouseLeave={() => setHover(null)}
                   style={{ cursor: "pointer" }}
                 >
-                  {/* hover halo */}
                   {isHover && <circle cx={c.x} cy={c.y} r={r + 2} fill="none" stroke="var(--color-cargo)" strokeWidth="0.4" opacity="0.5" />}
-                  {/* hub pulse */}
                   {c.hub && (
                     <circle cx={c.x} cy={c.y} r="2.4" fill="var(--color-cargo)" opacity="0.22">
                       <animate attributeName="r" values="2;3.4;2" dur="2.6s" repeatCount="indefinite" />
@@ -191,7 +195,7 @@ export default function CoverageMap() {
                 <span className="text-gradient">Every major route.</span>
               </>
             }
-            lede="From plant hubs to tier-2 dealer towns, our carriers run the corridors that matter — with the density to dispatch and deliver fast."
+            lede="Headquartered in Chennai with hubs in Bengaluru, Hyderabad and Pune, our Tata fleet runs the corridors that matter — with the density to dispatch and deliver across India."
           />
 
           <div className="mt-12 grid grid-cols-2 gap-x-8 gap-y-10">

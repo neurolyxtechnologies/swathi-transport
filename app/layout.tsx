@@ -25,21 +25,21 @@ const jetbrains = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Swathi Lorry Transport — B2B Car Carrier Logistics",
+  title: "Swathi Transports — Auto Logistics & Full-Truck-Load, Chennai",
   description:
-    "B2B car carrier logistics across India. We move OEM and dealer vehicle inventory in bulk — from manufacturing plants to showroom floors, insured and live-tracked.",
+    "Swathi Transports is a Chennai-based auto-logistics and full-truck-load (FTL) carrier. Car transport, auto parts, and container freight across India on a modern Tata Signa & Eicher fleet — insured and GPS-tracked.",
   keywords: [
-    "car carrier",
-    "B2B vehicle logistics",
-    "plant to dealer transport",
-    "dealer inventory logistics",
-    "OEM car transport India",
-    "bulk car carrier",
+    "Swathi Transports",
+    "auto logistics Chennai",
+    "full truck load FTL",
+    "car transportation India",
+    "container transport Tamil Nadu",
+    "Tata Signa fleet",
   ],
   openGraph: {
-    title: "Swathi Lorry Transport",
+    title: "Swathi Transports",
     description:
-      "B2B car carrier logistics — plant to showroom, in bulk, on time.",
+      "Auto logistics & full-truck-load from Chennai — on a Tata Signa & Eicher fleet.",
     type: "website",
   },
 };

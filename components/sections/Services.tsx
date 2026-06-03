@@ -7,13 +7,13 @@ import SpotlightCard from "@/components/ui/SpotlightCard";
 import { services, type Service } from "@/data/services";
 import { cn } from "@/lib/cn";
 
-// Bento spans: two wide cards on top (featured + plant), four compact below.
+// Bento spans: two wide cards on top (featured + FTL), four compact below.
 const spanMap: Record<string, string> = {
-  "multi-car": "sm:col-span-2 lg:col-span-2",
-  "plant-to-showroom": "sm:col-span-2 lg:col-span-2",
-  enclosed: "",
-  intercity: "",
-  dealership: "",
+  car: "sm:col-span-2 lg:col-span-2",
+  ftl: "sm:col-span-2 lg:col-span-2",
+  auto: "",
+  container: "",
+  domestic: "",
   insured: "",
 };
 
@@ -151,8 +151,8 @@ function ServiceCard({ s }: { s: Service }) {
 }
 
 export default function Services() {
-  const featured = services.find((s) => s.id === "multi-car")!;
-  const rest = services.filter((s) => s.id !== "multi-car");
+  const featured = services.find((s) => s.id === "car")!;
+  const rest = services.filter((s) => s.id !== "car");
 
   return (
     <Section id="services" className="border-t border-steel-dark/20">

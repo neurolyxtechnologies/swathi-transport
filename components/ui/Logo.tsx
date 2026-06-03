@@ -62,8 +62,8 @@ export default function Logo({
           SWATHI
         </span>
         {!compact && (
-          <span className="block font-mono text-[9px] font-medium tracking-[0.35em] text-steel">
-            LORRY&nbsp;TRANSPORT
+          <span className="block font-mono text-[9px] font-medium tracking-[0.3em] text-steel">
+            AUTO&nbsp;LOGISTICS
           </span>
         )}
       </span>

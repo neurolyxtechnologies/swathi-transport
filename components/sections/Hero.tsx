@@ -7,9 +7,9 @@ import { ButtonLink } from "@/components/ui/Button";
 import { cn } from "@/lib/cn";
 
 const trust = [
-  { value: "48,000+", label: "Vehicles moved" },
-  { value: "220+", label: "Cities served" },
-  { value: "99.4%", label: "On-time" },
+  { value: "2017", label: "Established · Chennai" },
+  { value: "400+", label: "Tata & Eicher fleet" },
+  { value: "4", label: "Logistics hubs" },
 ];
 
 // Headline split into words for a masked, word-by-word reveal.
@@ -41,21 +41,11 @@ export default function Hero() {
       <div className="relative z-10 mx-auto grid min-h-screen max-w-7xl items-center gap-12 px-6 pb-16 pt-32 lg:grid-cols-[1fr_1.15fr] lg:gap-8 lg:pt-28">
         {/* ---- Left: copy ---- */}
         <div className="max-w-xl">
-          <motion.span
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.15, duration: 0.6 }}
-            className="inline-flex w-fit items-center gap-2 rounded-full border border-steel-dark/60 bg-asphalt-2/60 px-4 py-1.5 font-mono text-[11px] uppercase tracking-[0.26em] text-steel backdrop-blur"
-          >
-            <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-signal" />
-            B2B Car Carrier · OEM &amp; Dealership
-          </motion.span>
-
           <motion.h1
             initial="hidden"
             animate="show"
             transition={{ staggerChildren: 0.075, delayChildren: 0.3 }}
-            className="mt-6 text-5xl leading-[1.02] text-chrome sm:text-6xl"
+            className="text-5xl leading-[1.02] text-chrome sm:text-6xl"
           >
             {headline.map((w, i) => (
               <span key={i}>
@@ -78,9 +68,10 @@ export default function Hero() {
             transition={{ delay: 0.42, duration: 0.7 }}
             className="mt-6 max-w-md text-lg leading-relaxed text-steel"
           >
-            Swathi moves manufacturer and dealer vehicles in bulk — factory to
-            forecourt. Multi-car carriers, full insurance, and live tracking that
-            deliver every unit showroom-ready.
+            Swathi Transports is a Chennai-based auto-logistics and full-truck-load
+            carrier. From finished vehicles to auto parts and containers, we move
+            your cargo on a modern Tata Signa &amp; Eicher fleet — insured,
+            GPS-tracked, and on time.
           </motion.p>
 
           <motion.div
@@ -120,6 +111,17 @@ export default function Hero() {
           transition={{ delay: 0.35, duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
           className="relative"
         >
+          {/* eyebrow chip sits above the lorry, using the right-side space */}
+          <motion.span
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.5, duration: 0.6 }}
+            className="mb-4 flex w-fit items-center gap-2 rounded-full border border-steel-dark/60 bg-asphalt-2/60 px-4 py-1.5 font-mono text-[11px] uppercase tracking-[0.26em] text-steel backdrop-blur"
+          >
+            <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-signal" />
+            Auto Logistics · Full-Truck-Load · Chennai
+          </motion.span>
+
           <div className="hero-stage relative overflow-hidden rounded-[2rem] border border-steel-dark/30 bg-gradient-to-br from-asphalt-2/70 to-asphalt/30 p-6 backdrop-blur-sm sm:p-10">
             <div className="bg-grid absolute inset-0 opacity-30" />
             <div className="absolute left-1/2 top-1/2 h-64 w-64 -translate-x-1/2 -translate-y-1/2 rounded-full bg-cargo/20 blur-3xl" />

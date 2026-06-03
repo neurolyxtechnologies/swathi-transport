@@ -9,6 +9,7 @@ const columns = [
       { label: "Services", href: "#services" },
       { label: "How it works", href: "#how" },
       { label: "Coverage", href: "#coverage" },
+      { label: "Fleet", href: "#fleet" },
       { label: "Why us", href: "#why" },
     ],
   },
@@ -30,8 +31,9 @@ export default function Footer() {
           <div>
             <Logo />
             <p className="mt-5 max-w-xs text-sm leading-relaxed text-steel">
-              B2B car carrier logistics across India. We move OEM and dealer
-              inventory from plant to showroom — insured, tracked, and on time.
+              Chennai-based auto logistics & full-truck-load carrier. Car transport,
+              auto parts, and container freight across India on a modern Tata Signa
+              &amp; Eicher fleet — insured and on time.
             </p>
             <button
               onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}

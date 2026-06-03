@@ -7,9 +7,9 @@ import { partners } from "@/data/content";
 
 const pillars = [
   {
-    title: "Insured, plant to bay",
-    body: "Every consignment carries comprehensive transit insurance from the moment it leaves the plant gate.",
-    icon: "M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6l8-4z M9 12l2 2 4-4",
+    title: "Fuel-efficient Tata fleet",
+    body: "A modern fleet of Tata Signa trucks and Eicher containers — fuel-efficient, safe, and backed by strong service support.",
+    icon: "M9 17a2 2 0 11-4 0 2 2 0 014 0zM19 17a2 2 0 11-4 0 2 2 0 014 0z M5 17H3V6a1 1 0 011-1h9v12m0 0h2m-2 0V9h4l3 4v4h-2",
   },
   {
     title: "Live GPS tracking",

@@ -4,6 +4,7 @@ import Services from "@/components/sections/Services";
 import HowItWorks from "@/components/sections/HowItWorks";
 import CoverageMap from "@/components/sections/CoverageMap";
 import WhyUs from "@/components/sections/WhyUs";
+import FleetTata from "@/components/sections/FleetTata";
 import Testimonials from "@/components/sections/Testimonials";
 import TrackingDemo from "@/components/sections/TrackingDemo";
 import QuoteForm from "@/components/sections/QuoteForm";
@@ -19,6 +20,7 @@ export default function Home() {
         <HowItWorks />
         <CoverageMap />
         <WhyUs />
+        <FleetTata />
         <Testimonials />
         <TrackingDemo />
         <QuoteForm />
