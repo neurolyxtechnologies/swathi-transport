@@ -7,17 +7,17 @@ const columns = [
     title: "Explore",
     links: [
       { label: "Services", href: "#services" },
-      { label: "How it works", href: "#how" },
+      { label: "PTL division", href: "#ptl" },
       { label: "Coverage", href: "#coverage" },
-      { label: "Fleet", href: "#fleet" },
-      { label: "Why us", href: "#why" },
+      { label: "Technology", href: "#technology" },
+      { label: "Customers", href: "#customers" },
     ],
   },
   {
     title: "Get started",
     links: [
-      { label: "Track shipment", href: "#track" },
       { label: "Get a quote", href: "#quote" },
+      { label: "Contact", href: "#contact" },
     ],
   },
 ];
@@ -31,9 +31,9 @@ export default function Footer() {
           <div>
             <Logo />
             <p className="mt-5 max-w-xs text-sm leading-relaxed text-steel">
-              Chennai-based auto logistics & full-truck-load carrier. Car transport,
-              auto parts, and container freight across India on a modern Tata Signa
-              &amp; Eicher fleet — insured and on time.
+              Chennai-based auto logistics carrier — full &amp; part loads (FTL/PTL).
+              Car transport, auto parts, warehousing, and container freight on a
+              modern Tata Signa &amp; Eicher fleet — insured and on time.
             </p>
             <button
               onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
@@ -68,9 +68,9 @@ export default function Footer() {
         </div>
 
         <div className="mt-14 flex flex-col items-start justify-between gap-4 border-t border-steel-dark/20 pt-7 text-xs text-steel-dark sm:flex-row sm:items-center">
-          <span>© {2026} Swathi Lorry Transport. All rights reserved.</span>
+          <span>© {2026} Swathi Supply Chain Services Pvt. Ltd. All rights reserved.</span>
           <span className="font-mono tracking-wider">
-            MADE FOR THE ROAD · PAN-INDIA NETWORK
+            LIVE THE EXPERIENCE · FEEL THE EXPERIENCE
           </span>
         </div>
       </div>

@@ -57,7 +57,7 @@ export default function QuoteForm() {
         headers: { "Content-Type": "application/json", Accept: "application/json" },
         body: JSON.stringify({
           access_key: key,
-          subject: "New quote request — Swathi Lorry Transport",
+          subject: "New quote request — Swathi Supply Chain Services",
           from_name: (payload.name as string) || "Website lead",
           ...payload,
         }),
@@ -137,7 +137,7 @@ export default function QuoteForm() {
                         transition={{ duration: 0.7, delay: 0.15 }}
                       />
                     ))}
-                    <svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="var(--color-signal)" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                    <svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="var(--signal)" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
                       <path d="M20 6L9 17l-5-5" />
                     </svg>
                   </motion.div>

@@ -110,15 +110,15 @@ export default function CoverageMap() {
           <svg viewBox={`0 0 ${W} ${H}`} className="relative w-full max-w-lg">
             <defs>
               <linearGradient id="mapFill" x1="0" y1="0" x2="0" y2="1">
-                <stop stopColor="#1b2436" />
-                <stop offset="1" stopColor="#10182a" />
+                <stop stopColor="var(--asphalt-3)" />
+                <stop offset="1" stopColor="var(--asphalt-2)" />
               </linearGradient>
               <linearGradient id="routeGrad" x1="0" y1="0" x2={W} y2={H} gradientUnits="userSpaceOnUse">
-                <stop stopColor="var(--color-cargo)" />
-                <stop offset="1" stopColor="var(--color-signal)" />
+                <stop stopColor="var(--cargo)" />
+                <stop offset="1" stopColor="var(--signal)" />
               </linearGradient>
               <pattern id="mapDots" width="3" height="3" patternUnits="userSpaceOnUse">
-                <circle cx="1.5" cy="1.5" r="0.34" fill="#33415c" />
+                <circle cx="1.5" cy="1.5" r="0.34" fill="var(--steel)" opacity="0.4" />
               </pattern>
               <clipPath id="indiaClip">
                 <path d={COUNTRY_D} />
@@ -130,7 +130,7 @@ export default function CoverageMap() {
             <g clipPath="url(#indiaClip)">
               <rect x="0" y="0" width={W} height={H} fill="url(#mapDots)" />
             </g>
-            <path d={COUNTRY_D} fill="none" stroke="#3b4a66" strokeWidth="0.5" strokeLinejoin="round" />
+            <path d={COUNTRY_D} fill="none" stroke="var(--steel-dark)" strokeWidth="0.5" strokeLinejoin="round" />
 
             {/* routes */}
             {routes.map(([a, b], i) => {
@@ -158,20 +158,20 @@ export default function CoverageMap() {
                   onMouseLeave={() => setHover(null)}
                   style={{ cursor: "pointer" }}
                 >
-                  {isHover && <circle cx={c.x} cy={c.y} r={r + 2} fill="none" stroke="var(--color-cargo)" strokeWidth="0.4" opacity="0.5" />}
+                  {isHover && <circle cx={c.x} cy={c.y} r={r + 2} fill="none" stroke="var(--cargo)" strokeWidth="0.4" opacity="0.5" />}
                   {c.hub && (
-                    <circle cx={c.x} cy={c.y} r="2.4" fill="var(--color-cargo)" opacity="0.22">
+                    <circle cx={c.x} cy={c.y} r="2.4" fill="var(--cargo)" opacity="0.22">
                       <animate attributeName="r" values="2;3.4;2" dur="2.6s" repeatCount="indefinite" />
                       <animate attributeName="opacity" values="0.28;0;0.28" dur="2.6s" repeatCount="indefinite" />
                     </circle>
                   )}
-                  <circle cx={c.x} cy={c.y} r={r} fill={c.hub ? "var(--color-cargo)" : "var(--color-amber)"} style={{ transition: "r 0.2s" }} />
+                  <circle cx={c.x} cy={c.y} r={r} fill={c.hub ? "var(--cargo)" : "var(--amber)"} style={{ transition: "r 0.2s" }} />
                   <text
                     x={c.x + lab.dx}
                     y={c.y + lab.dy}
                     fontSize="2.5"
                     textAnchor={lab.anchor}
-                    fill={isHover ? "var(--color-chrome)" : "#8a97ac"}
+                    fill={isHover ? "var(--chrome)" : "#8a97ac"}
                     fontWeight={isHover ? 700 : 400}
                     className="font-mono"
                     style={{ transition: "fill 0.2s" }}
@@ -195,14 +195,14 @@ export default function CoverageMap() {
                 <span className="text-gradient">Every major route.</span>
               </>
             }
-            lede="Headquartered in Chennai with hubs in Bengaluru, Hyderabad and Pune, our Tata fleet runs the corridors that matter — with the density to dispatch and deliver across India."
+            lede="Headquartered in Chennai with hubs in Bengaluru, Hyderabad and Pune — the density to dispatch and deliver across India."
           />
 
           <div className="mt-12 grid grid-cols-2 gap-x-8 gap-y-10">
             {stats.map((s) => (
               <div key={s.label}>
                 <div className="font-display text-4xl font-black text-chrome lg:text-5xl">
-                  <StatCounter value={s.value} suffix={s.suffix} decimals={s.decimals} />
+                  <StatCounter value={s.value} prefix={s.prefix} suffix={s.suffix} decimals={s.decimals} />
                 </div>
                 <div className="mt-2 text-sm text-steel">{s.label}</div>
               </div>

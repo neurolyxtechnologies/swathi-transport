@@ -6,41 +6,41 @@ import Reveal from "@/components/ui/Reveal";
 
 const strengths = [
   {
-    title: "Smart technology",
-    body: "Telematics and GPS keep every truck connected, tracked, and on-plan.",
-    icon: "M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 7h10v10H7z",
+    title: "Pioneer since 2008",
+    body: "Among the first in organized car-carrier operations in India — built into a supply-chain company in 2013.",
+    icon: "M12 2l2.4 7.4H22l-6 4.6 2.3 7.4-6.3-4.6L5.7 21.4 8 14 2 9.4h7.6z",
   },
   {
-    title: "Fuel-efficient",
-    body: "Tata Signa efficiency keeps running costs down and our rates competitive.",
-    icon: "M3 22h12M5 22V4a1 1 0 011-1h7a1 1 0 011 1v18M14 8h3l3 3v8a2 2 0 01-4 0v-7 M8 7h4",
+    title: "350+ vehicle fleet",
+    body: "150 car carriers and 200+ containerized goods carriers — flexible capacity for any volume.",
+    icon: "M3 7h11v9H3zM14 10h4l3 3v3h-7zM7.5 19a1.8 1.8 0 100-3.6 1.8 1.8 0 000 3.6zM18 19a1.8 1.8 0 100-3.6 1.8 1.8 0 000 3.6z",
   },
   {
-    title: "Safe & reliable",
-    body: "Modern safety on every truck — protecting your cargo and our crew.",
+    title: "100% GPS-enabled",
+    body: "Live track & trace on every vehicle for real-time updates and full operational transparency.",
+    icon: "M12 2a8 8 0 00-8 8c0 5.4 8 12 8 12s8-6.6 8-12a8 8 0 00-8-8zM12 7a3 3 0 100 6 3 3 0 000-6z",
+  },
+  {
+    title: "Zero-Damage policy",
+    body: "Stringent damage-prevention programs and continuous driver training, end to end.",
     icon: "M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6l8-4z M9 12l2 2 4-4",
-  },
-  {
-    title: "Strong service support",
-    body: "Tata's nationwide service network keeps our fleet road-ready, always.",
-    icon: "M14.7 6.3a4 4 0 00-5.4 5.4L3 18v3h3l6.3-6.3a4 4 0 005.4-5.4l-2.6 2.6-2.6-2.6 2.6-2.6z",
   },
 ];
 
-export default function FleetTata() {
+export default function Strengths() {
   return (
-    <Section id="fleet" className="border-t border-steel-dark/20">
+    <Section id="strengths" className="border-t border-steel-dark/20">
       <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
         {/* Left: heading + strengths */}
         <div>
           <SectionHeading
-            eyebrow="Our fleet"
+            eyebrow="Our edge"
             title={
               <>
-                Powered by <span className="text-gradient">Tata.</span>
+                Built to deliver, <span className="text-gradient">since 2008.</span>
               </>
             }
-            lede="Our business runs on a 400+ strong fleet of Tata Signa trucks and Eicher containers — chosen for the four things that move our profits and our promises."
+            lede="From a single transport operation to a pan-India supply-chain partner."
           />
 
           <div className="mt-10 grid gap-5 sm:grid-cols-2">
@@ -81,10 +81,10 @@ export default function FleetTata() {
             </span>
 
             <blockquote className="relative text-xl font-medium leading-snug text-chrome sm:text-2xl">
-              Our Tata trucks are the backbone of the business. The technology, fuel
-              efficiency and safety keep our costs down and our deliveries on time —
-              and Tata&apos;s service support means our fleet is always road-ready.
-              That&apos;s how we keep every promise to our customers.
+              From a single transport operation in 2008 to a pan-India supply-chain
+              partner, our promise hasn&apos;t changed — move every consignment
+              safely, on time, and with complete transparency. Zero damage isn&apos;t
+              a target for us, it&apos;s the standard.
             </blockquote>
 
             <figcaption className="relative mt-8 flex items-center gap-4">
@@ -93,13 +93,13 @@ export default function FleetTata() {
               </div>
               <div>
                 <div className="font-bold text-chrome">Hari Prasad</div>
-                <div className="text-sm text-steel">Managing Director, Swathi Transports</div>
+                <div className="text-sm text-steel">Managing Director, Swathi Supply Chain Services</div>
               </div>
             </figcaption>
 
             <div className="relative mt-7 inline-flex items-center gap-2 rounded-full border border-steel-dark/40 bg-asphalt/60 px-4 py-2 font-mono text-[10px] uppercase tracking-[0.2em] text-steel">
               <span className="h-1.5 w-1.5 rounded-full bg-cargo" />
-              Tata Signa · Fleet Partner
+              Live the experience · Feel the experience
             </div>
           </figure>
         </Reveal>

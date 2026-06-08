@@ -7,10 +7,12 @@ import CountUp from "react-countup";
 /** Number that counts up once it scrolls into view. */
 export default function StatCounter({
   value,
+  prefix = "",
   suffix = "",
   decimals = 0,
 }: {
   value: number;
+  prefix?: string;
   suffix?: string;
   decimals?: number;
 }) {
@@ -19,6 +21,7 @@ export default function StatCounter({
 
   return (
     <span ref={ref} className="tabular-nums">
+      {prefix}
       {inView ? (
         <CountUp end={value} duration={2.2} decimals={decimals} separator="," />
       ) : (

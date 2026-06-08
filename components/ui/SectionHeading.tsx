@@ -25,20 +25,20 @@ export default function SectionHeading({
     >
       {eyebrow && (
         <Reveal>
-          <span className="mb-4 inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.3em] text-cargo">
+          <span className="mb-3 inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.3em] text-cargo">
             <span className="h-px w-8 bg-cargo" />
             {eyebrow}
           </span>
         </Reveal>
       )}
       <Reveal index={1}>
-        <h2 className="text-balance text-4xl text-chrome sm:text-5xl lg:text-6xl">
+        <h2 className="text-balance text-[1.7rem] leading-[1.1] text-chrome sm:text-4xl">
           {title}
         </h2>
       </Reveal>
       {lede && (
         <Reveal index={2}>
-          <p className="mt-5 max-w-xl text-lg leading-relaxed text-steel data-[center=true]:mx-auto" data-center={align === "center"}>
+          <p className="mt-3 max-w-xl text-pretty text-base leading-relaxed text-steel data-[center=true]:mx-auto" data-center={align === "center"}>
             {lede}
           </p>
         </Reveal>

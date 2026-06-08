@@ -8,11 +8,11 @@ import { cn } from "@/lib/cn";
 
 const links = [
   { label: "Services", href: "#services" },
-  { label: "How it works", href: "#how" },
+  { label: "PTL", href: "#ptl" },
   { label: "Coverage", href: "#coverage" },
-  { label: "Fleet", href: "#fleet" },
-  { label: "Why us", href: "#why" },
-  { label: "Track", href: "#track" },
+  { label: "Technology", href: "#technology" },
+  { label: "Customers", href: "#customers" },
+  { label: "Contact", href: "#contact" },
 ];
 
 export default function Navbar() {

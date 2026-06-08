@@ -40,7 +40,7 @@ export default function Logo({
         {/* Chevron arrow head */}
         <motion.path
           d="M24 6 L34 14 L24 22"
-          stroke="var(--color-cargo)"
+          stroke="var(--cargo)"
           strokeWidth="3.2"
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -51,8 +51,8 @@ export default function Logo({
         />
         <defs>
           <linearGradient id="streak" x1="0" y1="0" x2="38" y2="0">
-            <stop stopColor="var(--color-amber)" stopOpacity="0.2" />
-            <stop offset="1" stopColor="var(--color-cargo)" />
+            <stop stopColor="var(--amber)" stopOpacity="0.2" />
+            <stop offset="1" stopColor="var(--cargo)" />
           </linearGradient>
         </defs>
       </svg>
@@ -62,8 +62,8 @@ export default function Logo({
           SWATHI
         </span>
         {!compact && (
-          <span className="block font-mono text-[9px] font-medium tracking-[0.3em] text-steel">
-            AUTO&nbsp;LOGISTICS
+          <span className="block font-mono text-[9px] font-medium tracking-[0.18em] text-steel">
+            SUPPLY&nbsp;CHAIN&nbsp;SERVICES
           </span>
         )}
       </span>

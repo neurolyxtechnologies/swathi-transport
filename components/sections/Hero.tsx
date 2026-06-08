@@ -7,9 +7,10 @@ import { ButtonLink } from "@/components/ui/Button";
 import { cn } from "@/lib/cn";
 
 const trust = [
-  { value: "2017", label: "Established · Chennai" },
-  { value: "400+", label: "Tata & Eicher fleet" },
-  { value: "4", label: "Logistics hubs" },
+  { value: "18+", label: "Years on the road" },
+  { value: "350+", label: "Fleet vehicles" },
+  { value: "₹100 Cr+", label: "Annual revenue" },
+  { value: "100%", label: "GPS-tracked" },
 ];
 
 // Headline split into words for a masked, word-by-word reveal.
@@ -34,7 +35,7 @@ export default function Hero() {
   return (
     <section id="top" className="relative overflow-hidden">
       {/* Atmosphere */}
-      <div className="absolute inset-0 bg-[radial-gradient(120%_100%_at_80%_-10%,#1b2436_0%,#0b0f1a_60%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(120%_100%_at_80%_-10%,var(--asphalt-3)_0%,var(--asphalt)_60%)]" />
       <div className="absolute inset-0 bg-grid opacity-50" />
       <div className="absolute right-[-10%] top-1/3 h-[36rem] w-[36rem] rounded-full bg-cargo/15 blur-[130px]" />
 
@@ -45,7 +46,7 @@ export default function Hero() {
             initial="hidden"
             animate="show"
             transition={{ staggerChildren: 0.075, delayChildren: 0.3 }}
-            className="text-5xl leading-[1.02] text-chrome sm:text-6xl"
+            className="text-4xl leading-[1.05] text-chrome sm:text-5xl"
           >
             {headline.map((w, i) => (
               <span key={i}>
@@ -66,12 +67,11 @@ export default function Hero() {
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.42, duration: 0.7 }}
-            className="mt-6 max-w-md text-lg leading-relaxed text-steel"
+            className="mt-6 max-w-md text-base leading-relaxed text-steel"
           >
-            Swathi Transports is a Chennai-based auto-logistics and full-truck-load
-            carrier. From finished vehicles to auto parts and containers, we move
-            your cargo on a modern Tata Signa &amp; Eicher fleet — insured,
-            GPS-tracked, and on time.
+            Chennai&apos;s car-carrier pioneers since 2008 — moving automobiles, goods
+            and part-loads across India on a 350+ vehicle, 100% GPS-tracked fleet,
+            under a strict Zero-Damage policy.
           </motion.p>
 
           <motion.div
@@ -81,8 +81,8 @@ export default function Hero() {
             className="mt-9 flex flex-wrap items-center gap-4"
           >
             <ButtonLink href="#quote">Request a Quote →</ButtonLink>
-            <ButtonLink href="#track" variant="outline">
-              Track a Consignment
+            <ButtonLink href="#services" variant="outline">
+              Explore Services
             </ButtonLink>
           </motion.div>
 
@@ -91,11 +91,11 @@ export default function Hero() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.8, duration: 0.8 }}
-            className="mt-12 flex gap-8 border-t border-steel-dark/20 pt-7"
+            className="mt-10 grid grid-cols-2 gap-x-6 gap-y-5 border-t border-steel-dark/20 pt-7 sm:grid-cols-4"
           >
             {trust.map((t) => (
               <div key={t.label}>
-                <dt className="font-display text-2xl font-black text-chrome sm:text-3xl">
+                <dt className="font-display text-xl font-black text-chrome sm:text-2xl">
                   {t.value}
                 </dt>
                 <dd className="mt-1 text-xs text-steel">{t.label}</dd>
@@ -119,7 +119,7 @@ export default function Hero() {
             className="mb-4 flex w-fit items-center gap-2 rounded-full border border-steel-dark/60 bg-asphalt-2/60 px-4 py-1.5 font-mono text-[11px] uppercase tracking-[0.26em] text-steel backdrop-blur"
           >
             <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-signal" />
-            Auto Logistics · Full-Truck-Load · Chennai
+            Auto Logistics · FTL &amp; PTL · Chennai
           </motion.span>
 
           <div className="hero-stage relative overflow-hidden rounded-[2rem] border border-steel-dark/30 bg-gradient-to-br from-asphalt-2/70 to-asphalt/30 p-6 backdrop-blur-sm sm:p-10">
@@ -136,7 +136,7 @@ export default function Hero() {
               className="road-move absolute inset-x-6 bottom-6 h-2 rounded-full sm:inset-x-10"
               style={{
                 backgroundImage:
-                  "repeating-linear-gradient(90deg, var(--color-steel-dark) 0 22px, transparent 22px 44px)",
+                  "repeating-linear-gradient(90deg, var(--steel-dark) 0 22px, transparent 22px 44px)",
                 opacity: 0.5,
               }}
             />
@@ -156,7 +156,7 @@ export default function Hero() {
               transition={{ repeat: Infinity, duration: 4, ease: "easeInOut", delay: 0.5 }}
               className="absolute left-5 top-5 flex items-center gap-2 rounded-full border border-steel-dark/40 bg-asphalt/80 px-3.5 py-2 text-xs font-semibold text-chrome backdrop-blur sm:left-8 sm:top-8"
             >
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-cargo)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--cargo)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6l8-4z" />
               </svg>
               Fully insured fleet

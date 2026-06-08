@@ -1,38 +1,87 @@
 @import "tailwindcss";
 
 /* ============================================================
-   SWATHI LORRY TRANSPORT — Brand Design Tokens
-   Dark-first automotive / logistics identity
+   SWATHI TRANSPORTS — Themeable design tokens
+
+   Theme values live in their own variable namespace (--asphalt, --cargo, …)
+   so they can be overridden per [data-theme] without Tailwind stripping them.
+   `@theme inline` maps them into Tailwind's color utilities (bg-asphalt, etc.).
    ============================================================ */
 
-@theme {
-  /* Surfaces */
-  --color-asphalt: #0b0f1a;
-  --color-asphalt-2: #131a2a;
-  --color-asphalt-3: #1b2436;
+:root {
+  color-scheme: dark;
+  --asphalt: #0b0f1a;
+  --asphalt-2: #131a2a;
+  --asphalt-3: #1b2436;
+  --cargo: #ff7a18;
+  --amber: #ffb44d;
+  --signal: #19e3b1;
+  --steel: #8a97ac;
+  --steel-dark: #4a5468;
+  --chrome: #f4f7fb;
+}
 
-  /* Accents */
-  --color-cargo: #ff7a18;
-  --color-amber: #ffb44d;
-  --color-signal: #19e3b1;
+/* ---- Theme presets (set <html data-theme="…">) ---- */
 
-  /* Neutrals */
-  --color-steel: #8a97ac;
-  --color-steel-dark: #4a5468;
-  --color-chrome: #f4f7fb;
+/* White & Blue */
+:root[data-theme="ocean-light"] {
+  color-scheme: light;
+  --asphalt: #f4f7fc;
+  --asphalt-2: #ffffff;
+  --asphalt-3: #e8eef8;
+  --cargo: #2563eb;
+  --amber: #60a5fa;
+  --signal: #0ea5e9;
+  --steel: #56678a;
+  --steel-dark: #c2cee2;
+  --chrome: #0c1b38;
+}
 
-  /* Fonts (wired in layout.tsx via next/font) */
+/* Midnight blue & cyan */
+:root[data-theme="midnight"] {
+  color-scheme: dark;
+  --asphalt: #070d1c;
+  --asphalt-2: #0e1730;
+  --asphalt-3: #16223f;
+  --cargo: #38bdf8;
+  --amber: #818cf8;
+  --signal: #34d399;
+  --steel: #8ea3c4;
+  --steel-dark: #38476a;
+  --chrome: #eef4ff;
+}
+
+/* Royal violet */
+:root[data-theme="royal"] {
+  color-scheme: dark;
+  --asphalt: #0c0a1f;
+  --asphalt-2: #141233;
+  --asphalt-3: #1d1a44;
+  --cargo: #a855f7;
+  --amber: #f0abfc;
+  --signal: #22d3ee;
+  --steel: #9b93c4;
+  --steel-dark: #3d3666;
+  --chrome: #f3f0ff;
+}
+
+@theme inline {
+  --color-asphalt: var(--asphalt);
+  --color-asphalt-2: var(--asphalt-2);
+  --color-asphalt-3: var(--asphalt-3);
+  --color-cargo: var(--cargo);
+  --color-amber: var(--amber);
+  --color-signal: var(--signal);
+  --color-steel: var(--steel);
+  --color-steel-dark: var(--steel-dark);
+  --color-chrome: var(--chrome);
+
   --font-display: var(--font-archivo), system-ui, sans-serif;
   --font-body: var(--font-hanken), system-ui, sans-serif;
   --font-mono: var(--font-jetbrains), ui-monospace, monospace;
 
-  /* Easings */
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-in-out-quart: cubic-bezier(0.76, 0, 0.24, 1);
-}
-
-:root {
-  color-scheme: dark;
 }
 
 * {
@@ -57,15 +106,15 @@ html.lenis body {
 }
 
 body {
-  background-color: var(--color-asphalt);
-  color: var(--color-chrome);
+  background-color: var(--asphalt);
+  color: var(--chrome);
   font-family: var(--font-body);
   overflow-x: clip;
 }
 
 ::selection {
-  background: var(--color-cargo);
-  color: var(--color-asphalt);
+  background: var(--cargo);
+  color: var(--asphalt);
 }
 
 /* Headings use the display face by default */
@@ -87,7 +136,7 @@ h4 {
 .bg-grid {
   background-image: radial-gradient(
     circle at center,
-    rgba(138, 151, 172, 0.14) 1px,
+    color-mix(in srgb, var(--steel) 22%, transparent) 1px,
     transparent 1px
   );
   background-size: 26px 26px;
@@ -99,7 +148,7 @@ h4 {
   width: 100%;
   background-image: repeating-linear-gradient(
     90deg,
-    var(--color-steel-dark) 0 28px,
+    var(--steel-dark) 0 28px,
     transparent 28px 56px
   );
   opacity: 0.4;
@@ -118,7 +167,7 @@ h4 {
 
 /* Gradient text helper */
 .text-gradient {
-  background: linear-gradient(100deg, var(--color-cargo), var(--color-amber));
+  background: linear-gradient(100deg, var(--cargo), var(--amber));
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -126,7 +175,7 @@ h4 {
 
 /* Glow utility for accents */
 .glow-cargo {
-  box-shadow: 0 0 60px -12px rgba(255, 122, 24, 0.55);
+  box-shadow: 0 0 60px -12px color-mix(in srgb, var(--cargo) 55%, transparent);
 }
 
 /* Animated marquee */
@@ -204,17 +253,17 @@ h4 {
   }
 }
 
-/* Thin scrollbar to match the dark theme */
+/* Thin scrollbar */
 ::-webkit-scrollbar {
   width: 10px;
 }
 ::-webkit-scrollbar-track {
-  background: var(--color-asphalt);
+  background: var(--asphalt);
 }
 ::-webkit-scrollbar-thumb {
-  background: var(--color-asphalt-3);
+  background: var(--asphalt-3);
   border-radius: 999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--color-steel-dark);
+  background: var(--steel-dark);
 }

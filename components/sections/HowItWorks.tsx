@@ -28,7 +28,7 @@ export default function HowItWorks() {
             Four steps from <span className="text-gradient">plant to floor.</span>
           </>
         }
-        lede="One transparent process for every dispatch — watch a consignment move from planning to delivery, on a loop."
+        lede="From planning to delivery — one transparent process, on every dispatch."
       />
 
       {/* Animated journey stage */}
@@ -80,7 +80,7 @@ export default function HowItWorks() {
                     "font-display text-4xl font-black transition-colors duration-300",
                     isActive
                       ? "text-gradient"
-                      : "text-asphalt-3 [-webkit-text-stroke:1px_var(--color-steel-dark)]"
+                      : "text-asphalt-3 [-webkit-text-stroke:1px_var(--steel-dark)]"
                   )}
                 >
                   {step.n}
