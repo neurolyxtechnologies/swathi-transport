@@ -182,6 +182,18 @@ export default function CoverageMap() {
               );
             })}
           </svg>
+
+          {/* legend — distinguish real hubs from served-corridor cities */}
+          <div className="relative mt-5 flex items-center justify-center gap-6 font-mono text-[11px] uppercase tracking-[0.18em] text-steel">
+            <span className="flex items-center gap-2">
+              <span className="h-2.5 w-2.5 rounded-full bg-cargo" />
+              Operating hub
+            </span>
+            <span className="flex items-center gap-2">
+              <span className="h-2 w-2 rounded-full bg-amber" />
+              Served city
+            </span>
+          </div>
         </div>
 
         {/* Copy + stats */}
