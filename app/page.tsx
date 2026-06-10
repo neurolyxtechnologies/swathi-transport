@@ -6,6 +6,7 @@ import HowItWorks from "@/components/sections/HowItWorks";
 import CoverageMap from "@/components/sections/CoverageMap";
 import Technology from "@/components/sections/Technology";
 import Strengths from "@/components/sections/Strengths";
+import CoreValues from "@/components/sections/CoreValues";
 import Customers from "@/components/sections/Customers";
 import QuoteForm from "@/components/sections/QuoteForm";
 import Contact from "@/components/sections/Contact";
@@ -23,6 +24,7 @@ export default function Home() {
         <CoverageMap />
         <Technology />
         <Strengths />
+        <CoreValues />
         <Customers />
         <QuoteForm />
         <Contact />
