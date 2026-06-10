@@ -3,6 +3,7 @@ import { Archivo, Hanken_Grotesk, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import SmoothScrollProvider from "@/components/providers/SmoothScrollProvider";
 import ThemeSwitcher from "@/components/ui/ThemeSwitcher";
+import JsonLd from "@/components/seo/JsonLd";
 
 const archivo = Archivo({
   subsets: ["latin"],
@@ -25,24 +26,62 @@ const jetbrains = JetBrains_Mono({
   display: "swap",
 });
 
+const SITE_URL = "https://swathigroups.com";
+
 export const metadata: Metadata = {
-  title: "Swathi Supply Chain Services — Auto Logistics, FTL & PTL, Chennai",
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: "Swathi Supply Chain Services | FTL, PTL & Auto Logistics",
+    template: "%s · Swathi Supply Chain Services",
+  },
   description:
-    "Swathi Supply Chain Services Pvt. Ltd. is a Chennai-based auto-logistics carrier offering full-truck-load (FTL) and part-truck-load (PTL) services, warehousing, car transport, auto parts and container freight across India on a modern Tata Signa & Eicher fleet — insured and GPS-tracked.",
+    "Chennai's car-carrier pioneers since 2008. FTL & PTL auto logistics across India on a 350+ vehicle, 100% GPS-tracked Tata Signa & Eicher fleet — zero-damage.",
+  applicationName: "Swathi Supply Chain Services",
+  authors: [{ name: "Swathi Supply Chain Services Pvt. Ltd." }],
+  creator: "Swathi Supply Chain Services Pvt. Ltd.",
+  publisher: "Swathi Supply Chain Services Pvt. Ltd.",
+  category: "Logistics",
   keywords: [
     "Swathi Supply Chain Services",
+    "Swathi Transports",
     "auto logistics Chennai",
+    "car carrier transport India",
     "full truck load FTL",
     "part truck load PTL",
+    "FTL PTL transport Chennai",
+    "vehicle logistics Tamil Nadu",
     "car transportation India",
-    "warehousing Tamil Nadu",
-    "Tata Signa fleet",
+    "GPS-tracked fleet",
+    "Tata Signa Eicher fleet",
   ],
+  alternates: {
+    canonical: "/",
+  },
   openGraph: {
-    title: "Swathi Supply Chain Services",
-    description:
-      "Auto logistics, FTL & PTL from Chennai — on a Tata Signa & Eicher fleet.",
     type: "website",
+    siteName: "Swathi Supply Chain Services",
+    title: "Swathi Supply Chain Services | FTL, PTL & Auto Logistics",
+    description:
+      "Auto logistics, FTL & PTL from Chennai — a 350+ vehicle, 100% GPS-tracked fleet, since 2008.",
+    url: SITE_URL,
+    locale: "en_IN",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Swathi Supply Chain Services | FTL, PTL & Auto Logistics",
+    description:
+      "Auto logistics, FTL & PTL from Chennai — a 350+ vehicle, 100% GPS-tracked fleet, since 2008.",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
   },
 };
 
@@ -55,7 +94,7 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html
-      lang="en"
+      lang="en-IN"
       suppressHydrationWarning
       className={`${archivo.variable} ${hanken.variable} ${jetbrains.variable}`}
     >
@@ -68,6 +107,7 @@ export default function RootLayout({
         />
       </head>
       <body className="grain antialiased">
+        <JsonLd />
         <SmoothScrollProvider>{children}</SmoothScrollProvider>
         <ThemeSwitcher />
       </body>
