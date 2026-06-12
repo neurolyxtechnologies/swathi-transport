@@ -12,7 +12,7 @@ export const ogContentType = "image/png";
 
 const stats = [
   ["350+", "Fleet vehicles"],
-  ["₹100 Cr+", "Annual revenue"],
+  ["₹85 Cr", "Annual revenue"],
   ["100%", "GPS-tracked"],
   ["20+", "Enterprise clients"],
 ];

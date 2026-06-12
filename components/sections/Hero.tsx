@@ -9,7 +9,7 @@ import { cn } from "@/lib/cn";
 const trust = [
   { value: "18+", label: "Years on the road" },
   { value: "350+", label: "Fleet vehicles" },
-  { value: "₹100 Cr+", label: "Annual revenue" },
+  { value: "₹85 Cr", label: "Annual revenue" },
   { value: "100%", label: "GPS-tracked" },
 ];
 
