@@ -33,7 +33,7 @@ export default function Footer() {
             <p className="mt-5 max-w-xs text-sm leading-relaxed text-steel">
               Chennai-based auto logistics carrier — full &amp; part loads (FTL/PTL).
               Car transport, auto parts, warehousing, and container freight on a
-              modern Tata Signa &amp; Eicher fleet — insured and on time.
+              350+ vehicle, 100% GPS-tracked fleet — insured and on time.
             </p>
             <button
               onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
