@@ -17,7 +17,7 @@ const jsonLd = {
       logo: `${SITE_URL}/favicon.ico`,
       image: `${SITE_URL}/opengraph-image`,
       description:
-        "Chennai-based auto-logistics carrier and car-carrier pioneer since 2008, offering full-truck-load (FTL) and part-truck-load (PTL) services across India on a 350+ vehicle, 100% GPS-tracked Tata Signa & Eicher fleet.",
+        "Chennai-based auto-logistics carrier and car-carrier pioneer since 2008, offering full-truck-load (FTL) and part-truck-load (PTL) services across India on a 350+ vehicle, 100% GPS-tracked fleet.",
       slogan: "Live the experience, feel the experience",
       foundingDate: "2008",
       email: "enquiry@swathigroups.com",

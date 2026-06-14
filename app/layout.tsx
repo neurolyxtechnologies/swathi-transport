@@ -35,7 +35,7 @@ export const metadata: Metadata = {
     template: "%s · Swathi Supply Chain Services",
   },
   description:
-    "Chennai's car-carrier pioneers since 2008. FTL & PTL auto logistics across India on a 350+ vehicle, 100% GPS-tracked Tata Signa & Eicher fleet — zero-damage.",
+    "Chennai's car-carrier pioneers since 2008. FTL & PTL auto logistics across India on a 350+ vehicle, 100% GPS-tracked fleet — under a strict zero-damage policy.",
   applicationName: "Swathi Supply Chain Services",
   authors: [{ name: "Swathi Supply Chain Services Pvt. Ltd." }],
   creator: "Swathi Supply Chain Services Pvt. Ltd.",
@@ -52,7 +52,6 @@ export const metadata: Metadata = {
     "vehicle logistics Tamil Nadu",
     "car transportation India",
     "GPS-tracked fleet",
-    "Tata Signa Eicher fleet",
   ],
   alternates: {
     canonical: "/",
