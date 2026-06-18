@@ -1,8 +1,28 @@
 "use client";
 
+import Image from "next/image";
 import Section from "@/components/ui/Section";
 import SectionHeading from "@/components/ui/SectionHeading";
 import Reveal from "@/components/ui/Reveal";
+
+const leaders = [
+  {
+    name: "Swathi",
+    title: "Executive Director, Swathi Supply Chain Services",
+    photo: "/swathi.png",
+    initials: "SW",
+    quote:
+      "We started with a single truck and a simple promise — move every load safely, on time, and in full view. Today that promise runs a pan-India network, and I'm proud it's a women-led enterprise proving Indian logistics can lead on trust and technology.",
+  },
+  {
+    name: "Hari Prasad",
+    title: "Chief Executive Officer, Swathi Supply Chain Services",
+    photo: null,
+    initials: "HP",
+    quote:
+      "From a single transport operation in 2008 to a pan-India supply-chain partner, our promise hasn't changed — move every consignment safely, on time, and with complete transparency. Zero damage isn't a target, it's the standard.",
+  },
+];
 
 const strengths = [
   {
@@ -72,37 +92,51 @@ export default function Strengths() {
           </div>
         </div>
 
-        {/* Right: Managing Director quote */}
-        <Reveal index={2}>
-          <figure className="relative overflow-hidden rounded-[2rem] border border-steel-dark/30 bg-gradient-to-br from-asphalt-2/80 to-asphalt/30 p-8 sm:p-10">
-            <div className="absolute -right-10 -top-10 h-40 w-40 rounded-full bg-cargo/15 blur-3xl" />
-            <span className="pointer-events-none absolute -left-1 -top-6 font-display text-[8rem] leading-none text-asphalt-3 select-none">
-              &ldquo;
-            </span>
+        {/* Right: Leadership */}
+        <div className="space-y-6">
+          {leaders.map((leader, i) => (
+            <Reveal key={leader.name} index={i + 2}>
+              <figure className="relative overflow-hidden rounded-[1.75rem] border border-steel-dark/30 bg-gradient-to-br from-asphalt-2/80 to-asphalt/30 p-7 sm:p-8">
+                <div className="absolute -right-10 -top-10 h-32 w-32 rounded-full bg-cargo/15 blur-3xl" />
 
-            <blockquote className="relative text-xl font-medium leading-snug text-chrome sm:text-2xl">
-              From a single transport operation in 2008 to a pan-India supply-chain
-              partner, our promise hasn&apos;t changed — move every consignment
-              safely, on time, and with complete transparency. Zero damage isn&apos;t
-              a target for us, it&apos;s the standard.
-            </blockquote>
+                <figcaption className="relative flex items-center gap-4">
+                  {leader.photo ? (
+                    <div className="relative h-14 w-14 shrink-0 overflow-hidden rounded-full ring-1 ring-cargo/50">
+                      <Image
+                        src={leader.photo}
+                        alt={leader.name}
+                        fill
+                        sizes="56px"
+                        className="object-cover object-[center_22%]"
+                      />
+                    </div>
+                  ) : (
+                    <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-cargo to-amber font-display text-xl font-black text-asphalt">
+                      {leader.initials}
+                    </div>
+                  )}
+                  <div>
+                    <div className="font-bold text-chrome">{leader.name}</div>
+                    <div className="text-sm text-steel">{leader.title}</div>
+                  </div>
+                </figcaption>
 
-            <figcaption className="relative mt-8 flex items-center gap-4">
-              <div className="flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-cargo to-amber font-display text-xl font-black text-asphalt">
-                HP
-              </div>
-              <div>
-                <div className="font-bold text-chrome">Hari Prasad</div>
-                <div className="text-sm text-steel">Managing Director, Swathi Supply Chain Services</div>
-              </div>
-            </figcaption>
+                <span className="pointer-events-none absolute right-6 top-2 font-display text-[5rem] leading-none text-asphalt-3 select-none">
+                  &rdquo;
+                </span>
 
-            <div className="relative mt-7 inline-flex items-center gap-2 rounded-full border border-steel-dark/40 bg-asphalt/60 px-4 py-2 font-mono text-[10px] uppercase tracking-[0.2em] text-steel">
-              <span className="h-1.5 w-1.5 rounded-full bg-cargo" />
-              Live the experience · Feel the experience
-            </div>
-          </figure>
-        </Reveal>
+                <blockquote className="relative mt-5 text-base leading-relaxed text-steel sm:text-lg">
+                  {leader.quote}
+                </blockquote>
+              </figure>
+            </Reveal>
+          ))}
+
+          <div className="inline-flex items-center gap-2 rounded-full border border-steel-dark/40 bg-asphalt/60 px-4 py-2 font-mono text-[10px] uppercase tracking-[0.2em] text-steel">
+            <span className="h-1.5 w-1.5 rounded-full bg-cargo" />
+            Live the experience · Feel the experience
+          </div>
+        </div>
       </div>
     </Section>
   );
