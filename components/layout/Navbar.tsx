@@ -15,6 +15,10 @@ const links = [
   { label: "Contact", href: "#contact" },
 ];
 
+// Saradhi operations app. Overridable per-environment (e.g. dev builds point
+// at dev.swathigroups.com) via NEXT_PUBLIC_APP_URL.
+const APP_URL = process.env.NEXT_PUBLIC_APP_URL ?? "https://app.swathigroups.com";
+
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
@@ -55,6 +59,13 @@ export default function Navbar() {
         </div>
 
         <div className="flex items-center gap-3">
+          <ButtonLink
+            href={APP_URL}
+            variant="outline"
+            className="hidden px-5 py-2.5 text-xs sm:inline-flex"
+          >
+            Login
+          </ButtonLink>
           <ButtonLink href="#quote" className="hidden px-5 py-2.5 text-xs sm:inline-flex">
             Get a Quote
           </ButtonLink>
@@ -112,9 +123,17 @@ export default function Navbar() {
                 </a>
               ))}
               <ButtonLink
-                href="#quote"
+                href={APP_URL}
+                variant="outline"
                 onClick={() => setOpen(false)}
                 className="mt-3 w-full"
+              >
+                Login
+              </ButtonLink>
+              <ButtonLink
+                href="#quote"
+                onClick={() => setOpen(false)}
+                className="mt-2 w-full"
               >
                 Get a Quote
               </ButtonLink>
