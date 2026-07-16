@@ -6,9 +6,10 @@ import { cn } from "@/lib/cn";
 
 type Theme = { id: string; name: string; swatch: string[] };
 
-// id "" = default (Cargo) — remove the attribute.
+// id "swathi" = brand default. id "" = the original dark "Cargo" palette.
 const THEMES: Theme[] = [
-  { id: "", name: "Cargo (current)", swatch: ["#0b0f1a", "#ff7a18", "#ffb44d"] },
+  { id: "swathi", name: "Swathi Carrier (default)", swatch: ["#f6efe2", "#c0561d", "#1f7aa8"] },
+  { id: "", name: "Cargo (dark)", swatch: ["#0b0f1a", "#ff7a18", "#ffb44d"] },
   { id: "ocean-light", name: "White & Blue", swatch: ["#ffffff", "#2563eb", "#60a5fa"] },
   { id: "midnight", name: "Midnight", swatch: ["#070d1c", "#38bdf8", "#818cf8"] },
   { id: "royal", name: "Royal Violet", swatch: ["#0c0a1f", "#a855f7", "#f0abfc"] },
@@ -25,7 +26,9 @@ function applyTheme(id: string) {
 export default function ThemeSwitcher() {
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState(() =>
-    typeof window !== "undefined" ? localStorage.getItem(STORAGE_KEY) ?? "" : ""
+    typeof window !== "undefined"
+      ? localStorage.getItem(STORAGE_KEY) ?? "swathi"
+      : "swathi"
   );
 
   // Keep the <html data-theme> in sync (the head script applies it pre-paint).

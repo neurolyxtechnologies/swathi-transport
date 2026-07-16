@@ -65,6 +65,37 @@
   --chrome: #f3f0ff;
 }
 
+/* Swathi Carrier — warm paper theme drawn from the brand logo
+   (cream paper · espresso ink · terracotta brown + teal from the mark).
+   Light + warm so the full-colour logo sits natively, no badge needed. */
+:root[data-theme="swathi"] {
+  color-scheme: light;
+  --asphalt: #f6efe2; /* warm ivory paper — the logo's own background tone */
+  --asphalt-2: #fffdf8; /* cards / raised surfaces */
+  --asphalt-3: #eaddc9; /* warm sand panel / border */
+  --cargo: #c0561d; /* terracotta — the logo's warm brown, dialled up for CTAs */
+  --amber: #d98a35; /* golden amber accent */
+  --signal: #1f7aa8; /* teal from the mark's plane / ship / globe */
+  --steel: #6f6152; /* muted taupe — secondary text */
+  --steel-dark: #cdbca0; /* warm hairline dividers */
+  --chrome: #2b2016; /* deep espresso — primary text on paper */
+}
+
+/* ---- Logo badge ----
+   The brand logo is a dark-ink print lockup. On dark themes it needs a light
+   chip to read; on light themes (paper / ocean) it sits bare, no chip. */
+.logo-badge {
+  background-color: #f7f1e7; /* warm ivory — the logo's paper tone */
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.35),
+    inset 0 0 0 1px rgba(107, 74, 47, 0.18);
+}
+:root[data-theme="swathi"] .logo-badge,
+:root[data-theme="ocean-light"] .logo-badge {
+  background-color: transparent;
+  box-shadow: none;
+}
+
 @theme inline {
   --color-asphalt: var(--asphalt);
   --color-asphalt-2: var(--asphalt-2);

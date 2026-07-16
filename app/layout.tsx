@@ -85,7 +85,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0b0f1a",
+  themeColor: "#f6efe2",
 };
 
 export default function RootLayout({
@@ -94,14 +94,15 @@ export default function RootLayout({
   return (
     <html
       lang="en-IN"
+      data-theme="swathi"
       suppressHydrationWarning
       className={`${archivo.variable} ${hanken.variable} ${jetbrains.variable}`}
     >
       <head>
-        {/* Apply saved preview theme before paint (no flash) */}
+        {/* Default to the brand "swathi" theme; honour a saved preview override. */}
         <script
           dangerouslySetInnerHTML={{
-            __html: `try{var t=localStorage.getItem('swathi-theme');if(t)document.documentElement.dataset.theme=t;}catch(e){}`,
+            __html: `try{var t=localStorage.getItem('swathi-theme');document.documentElement.dataset.theme=t||'swathi';}catch(e){}`,
           }}
         />
       </head>

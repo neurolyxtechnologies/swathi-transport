@@ -8,8 +8,8 @@ export default function manifest(): MetadataRoute.Manifest {
       "Chennai's car-carrier pioneers — FTL & PTL auto logistics across India on a 350+ vehicle, GPS-tracked fleet.",
     start_url: "/",
     display: "standalone",
-    background_color: "#0b0f1a",
-    theme_color: "#0b0f1a",
+    background_color: "#f6efe2",
+    theme_color: "#f6efe2",
     icons: [
       {
         src: "/favicon.ico",
