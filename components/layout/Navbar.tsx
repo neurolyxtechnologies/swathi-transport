@@ -42,7 +42,7 @@ export default function Navbar() {
           : "border-b border-transparent bg-transparent"
       )}
     >
-      <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
+      <nav className="mx-auto flex max-w-7xl items-center justify-between px-5 py-3 sm:px-6 sm:py-4">
         <Logo />
 
         <div className="hidden items-center gap-8 lg:flex">
@@ -62,11 +62,14 @@ export default function Navbar() {
           <ButtonLink
             href={APP_URL}
             variant="outline"
-            className="hidden px-5 py-2.5 text-xs sm:inline-flex"
+            className="hidden px-5 py-2.5 text-xs lg:inline-flex"
           >
             Login
           </ButtonLink>
-          <ButtonLink href="#quote" className="hidden px-5 py-2.5 text-xs sm:inline-flex">
+          <ButtonLink
+            href="#quote"
+            className="hidden px-4 py-2.5 text-xs sm:inline-flex sm:px-5"
+          >
             Get a Quote
           </ButtonLink>
 

@@ -81,21 +81,6 @@
   --chrome: #2b2016; /* deep espresso — primary text on paper */
 }
 
-/* ---- Logo badge ----
-   The brand logo is a dark-ink print lockup. On dark themes it needs a light
-   chip to read; on light themes (paper / ocean) it sits bare, no chip. */
-.logo-badge {
-  background-color: #f7f1e7; /* warm ivory — the logo's paper tone */
-  box-shadow:
-    0 1px 2px rgba(0, 0, 0, 0.35),
-    inset 0 0 0 1px rgba(107, 74, 47, 0.18);
-}
-:root[data-theme="swathi"] .logo-badge,
-:root[data-theme="ocean-light"] .logo-badge {
-  background-color: transparent;
-  box-shadow: none;
-}
-
 @theme inline {
   --color-asphalt: var(--asphalt);
   --color-asphalt-2: var(--asphalt-2);

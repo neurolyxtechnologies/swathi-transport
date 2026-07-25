@@ -2,13 +2,10 @@ import { cn } from "@/lib/cn";
 
 /**
  * Swathi brand lockup — the infinity mark + "SWATHI" wordmark + tagline, from
- * `/public/swathi-logo.png` (the same asset the Saradhi app uses). The client
- * is attached to the logo's colours, so we keep the full-colour artwork.
- *
- * The lockup has DARK ink, so it needs a light backing to read on the site's
- * near-black header. Instead of a cold white box we use a warm ivory badge —
- * tuned to the logo's own paper tone + brown — so it feels branded, not
- * bolted-on. `compact` trims the badge + image for tight chrome.
+ * `/public/swathi-logo-mark.png` (the full-colour artwork with its white
+ * background removed to transparent). The full-colour logo reads cleanly on
+ * both the dark header and the light themes, so no backing chip is needed.
+ * `compact` trims the image for tight chrome.
  */
 export default function Logo({
   className,
@@ -19,22 +16,15 @@ export default function Logo({
 }) {
   return (
     <a href="#top" className={cn("group inline-flex items-center", className)}>
-      <span
+      {/* eslint-disable-next-line @next/next/no-img-element -- static brand asset from /public */}
+      <img
+        src="/swathi-logo-mark.png"
+        alt="Swathi Logistics & Supply Chain Services"
         className={cn(
-          // `logo-badge` paints a light chip on dark themes and collapses to
-          // nothing on light themes (see globals.css). No inline styles so the
-          // theme cascade fully controls it.
-          "logo-badge inline-flex items-center rounded-2xl transition-transform group-hover:scale-[1.02]",
-          compact ? "px-3 py-2" : "px-5 py-3",
+          "w-auto transition-transform group-hover:scale-[1.02]",
+          compact ? "h-11" : "h-10 sm:h-14 lg:h-16",
         )}
-      >
-        {/* eslint-disable-next-line @next/next/no-img-element -- static brand asset from /public */}
-        <img
-          src="/swathi-logo.png"
-          alt="Swathi Logistics & Supply Chain Services"
-          className={cn(compact ? "h-12" : "h-20", "w-auto")}
-        />
-      </span>
+      />
     </a>
   );
 }
