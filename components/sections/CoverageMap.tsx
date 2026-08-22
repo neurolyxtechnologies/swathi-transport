@@ -28,9 +28,20 @@ const projection = geoMercator().fitExtent(
 const pathGen = geoPath(projection);
 const COUNTRY_D = pathGen(indiaFeature) ?? "";
 
+/**
+ * Round coordinates to a fixed precision before they reach an SVG attribute.
+ *
+ * `Math.hypot` and float-to-string formatting differ in the final bits between
+ * Node and the browser, so the server and client serialised subtly different
+ * `d` strings ("…2286845" vs "…22868451") and React reported a hydration
+ * mismatch on every route arc. Three decimals is far finer than a 100-unit
+ * viewBox can display, and it is identical in both runtimes.
+ */
+const px = (n: number) => Math.round(n * 1000) / 1000;
+
 function project(lng: number, lat: number) {
   const p = projection([lng, lat]);
-  return { x: p?.[0] ?? 0, y: p?.[1] ?? 0 };
+  return { x: px(p?.[0] ?? 0), y: px(p?.[1] ?? 0) };
 }
 
 // Pre-project every city to SVG coordinates.
@@ -59,7 +70,7 @@ function arc(a: { x: number; y: number }, b: { x: number; y: number }) {
   const dist = Math.hypot(dx, dy) || 1;
   const ox = (-dy / dist) * dist * 0.16;
   const oy = (dx / dist) * dist * 0.16;
-  return `M${a.x} ${a.y} Q${mx + ox} ${my + oy} ${b.x} ${b.y}`;
+  return `M${px(a.x)} ${px(a.y)} Q${px(mx + ox)} ${px(my + oy)} ${px(b.x)} ${px(b.y)}`;
 }
 
 export default function CoverageMap() {
