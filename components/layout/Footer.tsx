@@ -1,24 +1,34 @@
 "use client";
 
+import Link from "next/link";
 import Logo from "@/components/ui/Logo";
 
+/**
+ * Section links are root-relative (`/#services`) rather than bare fragments so
+ * the footer also works on standalone routes such as /privacy, where a bare
+ * `#services` would resolve against a page that has no such section.
+ */
 const columns = [
   {
     title: "Explore",
     links: [
-      { label: "Services", href: "#services" },
-      { label: "PTL division", href: "#ptl" },
-      { label: "Coverage", href: "#coverage" },
-      { label: "Technology", href: "#technology" },
-      { label: "Customers", href: "#customers" },
+      { label: "Services", href: "/#services" },
+      { label: "PTL division", href: "/#ptl" },
+      { label: "Coverage", href: "/#coverage" },
+      { label: "Technology", href: "/#technology" },
+      { label: "Customers", href: "/#customers" },
     ],
   },
   {
     title: "Get started",
     links: [
-      { label: "Get a quote", href: "#quote" },
-      { label: "Contact", href: "#contact" },
+      { label: "Get a quote", href: "/#quote" },
+      { label: "Contact", href: "/#contact" },
     ],
+  },
+  {
+    title: "Legal",
+    links: [{ label: "Privacy Policy", href: "/privacy", internal: true }],
   },
 ];
 
@@ -27,7 +37,7 @@ export default function Footer() {
     <footer className="relative overflow-hidden border-t border-steel-dark/20 bg-asphalt">
       <div className="bg-grid absolute inset-0 opacity-40" />
       <div className="relative mx-auto max-w-7xl px-6 py-16">
-        <div className="grid gap-12 lg:grid-cols-[1.8fr_1fr_1fr]">
+        <div className="grid gap-12 lg:grid-cols-[1.8fr_1fr_1fr_1fr]">
           <div>
             <Logo />
             <p className="mt-5 max-w-xs text-sm leading-relaxed text-steel">
@@ -54,12 +64,21 @@ export default function Footer() {
               <ul className="space-y-3">
                 {col.links.map((link) => (
                   <li key={link.href}>
-                    <a
-                      href={link.href}
-                      className="text-sm text-steel transition-colors hover:text-chrome"
-                    >
-                      {link.label}
-                    </a>
+                    {"internal" in link && link.internal ? (
+                      <Link
+                        href={link.href}
+                        className="text-sm text-steel transition-colors hover:text-chrome"
+                      >
+                        {link.label}
+                      </Link>
+                    ) : (
+                      <a
+                        href={link.href}
+                        className="text-sm text-steel transition-colors hover:text-chrome"
+                      >
+                        {link.label}
+                      </a>
+                    )}
                   </li>
                 ))}
               </ul>
